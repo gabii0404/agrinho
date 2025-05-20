@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Conexão Cidade e Campo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Conexão entre Cidade e Campo</h1>
+  <p>Arraste os itens do campo até seus correspondentes na cidade!</p>
+
+  <div class="container">
+    <div class="campo">
+      <h2>Campo</h2>
+      <div class="item" draggable="true" id="leite">🐄 Leite</div>
+      <div class="item" draggable="true" id="trigo">🌾 Trigo</div>
+      <div class="item" draggable="true" id="fruta">🍎 Fruta</div>
+    </div>
+
+    <div class="cidade">
+      <h2>Cidade</h2>
+      <div class="dropzone" data-match="leite">🥛 Leite na padaria</div>
+      <div class="dropzone" data-match="trigo">🍞 Pão no mercado</div>
+      <div class="dropzone" data-match="fruta">🍰 Bolo na confeitaria</div>
+    </div>
+  </div>
+
+  <div id="mensagem"></div>
+
+  <script>
+    const items = document.querySelectorAll('.item');
+    const dropzones = document.querySelectorAll('.dropzone');
+    const mensagem = document.getElementById('mensagem');
+
+    items.forEach(item => {
+      item.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', item.id);
+      });
+    });
+
+    dropzones.forEach(zone => {
+      zone.addEventListener('dragover', e => {
+        e.preventDefault();
+      });
+
+      zone.addEventListener('drop', e => {
+        e.preventDefault();
+        const droppedId = e.dataTransfer.getData('text/plain');
+        const expectedId = zone.getAttribute('data-match');
+
+        if (droppedId === expectedId) {
+          const draggedItem = document.getElementById(droppedId);
+          zone.textContent = "✅ Conectado!";
+          draggedItem.remove();
+          checkWin();
+        } else {
+          mensagem.textContent = "❌ Conexão incorreta. Tente novamente!";
+          mensagem.style.color = "red";
+        }
+      });
+    });
+
+    function checkWin() {
+      if (document.querySelectorAll('.item').length === 0) {
+        mensagem.textContent = "🎉 Parabéns! Você conectou todos os itens!";
+        mensagem.style.color = "green";
+      }
+    }
+  </script>
+</body>
+</html>
