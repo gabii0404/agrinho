@@ -1,29 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Conexão Cidade e Campo</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Perguntas</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>🌾🏙️ Conexão Cidade & Campo</h1>
-  <p id="instrucoes">Arraste os itens do campo até os correspondentes na cidade!</p>
-
-  <div class="container">
-    <div class="campo" id="campo">
-      <h2>🌱 Campo</h2>
+    <div class="game-container">
+        <h1>Jogo de Perguntas</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Digite sua resposta">
+            <button onclick="checkAnswer()">Verificar Resposta</button>
+        </div>
+        <div id="feedback"></div>
+        <div id="next-button" style="display:none;">
+            <button onclick="nextQuestion()">Próxima Pergunta</button>
+        </div>
     </div>
-    <div class="cidade" id="cidade">
-      <h2>🏪 Cidade</h2>
-    </div>
-  </div>
 
-  <div id="mensagem"></div>
-  <button id="proximoNivel" style="display: none;">Próximo Nível</button>
-
-  <script>
-    const niveis = [
-      {
-        campo: [
-          { id: 'leite', label: '🐄 Leite' },
-          { id: 'trigo', label: '
+    <script src="script.js"></script>
+</body>
+</html>
